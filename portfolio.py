@@ -1,302 +1,348 @@
 import streamlit as st
-from PIL import Image
+from streamlit_option_menu import option_menu
 import base64
-import pandas as pd
+from PIL import Image
 
 # Set page config
 st.set_page_config(
-    page_title="Vamshi Krishna | Data Scientist Portfolio",
+    page_title="Vamshi Krishna | Data Scientist",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for styling
+# Custom CSS
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 local_css("style.css")
 
+# Background with overlay
+def add_bg_with_overlay():
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background: linear-gradient(rgba(255,255,255,0.9), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+add_bg_with_overlay()
+
 # Sidebar navigation
-st.sidebar.title("Vamshi Krishna Kammadanam")
-st.sidebar.markdown("""
-<p class="sidebar-header">
-Data Scientist | ML Engineer<br>
-Python | SQL | Tableau | Power BI
-</p>
-""", unsafe_allow_html=True)
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center;padding:1rem;border-bottom:1px solid #eee;margin-bottom:1rem;'>
+            <h1 style='margin-bottom:0.5rem;'>Vamshi Krishna</h1>
+            <p style='color:#666;'>Data Scientist | ML Engineer</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "About", "Skills", "Experience", "Projects", "Contact"],
+        icons=["house", "person", "tools", "briefcase", "code-slash", "envelope"],
+        default_index=0,
+        styles={
+            "container": {"padding": "0!important", "background-color": "rgba(0,0,0,0.5)"},
+            "icon": {"color": "white", "font-size": "16px"}, 
+            "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "color": "white"},
+            "nav-link-selected": {"background-color": "rgba(78,121,167,0.8)"},
+        }
+    )
 
-page = st.sidebar.radio("", 
-    ["🏠 Home", "🛠 Technical Skills", "💼 Experience", "🚀 Projects", "🎓 Education & Certs", "📧 Contact"])
-
-# Header with decorative elements
-def display_header():
-    st.markdown("""
-    <div class="header-container">
-        <h1 class="main-title">VAMSHI KRISHNA KAMMADANAM</h1>
-        <div class="title-divider"></div>
-        <p class="subtitle">Data Scientist | Machine Learning Specialist</p>
-    </div>
-    """, unsafe_allow_html=True)
+# Content container
+def content_container():
+    return st.container()
 
 # Home Page
-if page == "🏠 Home":
-    display_header()
-    
-    st.markdown("""
-    <div class="welcome-box">
-        <h2>Welcome to My Professional Portfolio</h2>
-        <p class="intro-text">Innovative Data Science professional with 3+ years of experience in building machine learning models, 
-        data analysis, and business intelligence solutions. Passionate about transforming raw data into actionable insights 
-        that drive business growth and operational efficiency.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Key Highlights
-    st.markdown("### 🔑 Key Professional Highlights")
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        <div class="highlight-card">
-            <div class="highlight-icon">📈</div>
-            <h3>Predictive Modeling</h3>
-            <p>Built ML models with up to 90% accuracy for business applications</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="highlight-card">
-            <div class="highlight-icon">📊</div>
-            <h3>Data Visualization</h3>
-            <p>Created dashboards that improved decision-making by 15%</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-        <div class="highlight-card">
-            <div class="highlight-icon">🧠</div>
-            <h3>Data Engineering</h3>
-            <p>Processed datasets with 10,000+ records ensuring data quality</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # Testimonial/Quote
-    st.markdown("""
-    <div class="testimonial">
-        <p>"Transforming data into insights and models into solutions"</p>
-    </div>
-    """, unsafe_allow_html=True)
+if selected == "Home":
+    with content_container():
+        st.markdown(
+            """
+            <div style='text-align:center;padding:2rem 0;'>
+                <h1 style='font-size:2.5rem;color:#2c3e50;margin-bottom:0.5rem;'>VAMSHI KRISHNA KAMMADANAM</h1>
+                <p style='font-size:1.2rem;color:#4e79a7;'>Data Scientist | Machine Learning Engineer</p>
+                <div style='height:4px;width:100px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:1rem auto;'></div>
+                <p style='max-width:700px;margin:0 auto;color:#555;'>Transforming data into actionable insights and models into solutions</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.markdown(
+                """
+                <div style='background:white;border-radius:10px;padding:1.5rem;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:1rem;'>
+                    <div style='font-size:2rem;margin-bottom:1rem;color:#4e79a7;'>📈</div>
+                    <div style='font-size:2rem;font-weight:bold;margin-bottom:0.5rem;color:#2c3e50;'>12+</div>
+                    <div style='color:#666;'>Models Built</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        with col2:
+            st.markdown(
+                """
+                <div style='background:white;border-radius:10px;padding:1.5rem;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:1rem;'>
+                    <div style='font-size:2rem;margin-bottom:1rem;color:#4e79a7;'>📊</div>
+                    <div style='font-size:2rem;font-weight:bold;margin-bottom:0.5rem;color:#2c3e50;'>8</div>
+                    <div style='color:#666;'>Projects Completed</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        with col3:
+            st.markdown(
+                """
+                <div style='background:white;border-radius:10px;padding:1.5rem;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:1rem;'>
+                    <div style='font-size:2rem;margin-bottom:1rem;color:#4e79a7;'>🧠</div>
+                    <div style='font-size:2rem;font-weight:bold;margin-bottom:0.5rem;color:#2c3e50;'>3</div>
+                    <div style='color:#666;'>Years Experience</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
-# Technical Skills Page
-elif page == "🛠 Technical Skills":
-    display_header()
-    st.markdown("## 🛠 Technical Skills & Expertise")
-    
-    tab1, tab2, tab3 = st.tabs(["🧑‍💻 Core Competencies", "📊 Visualization", "🔧 Tools & Technologies"])
-    
-    with tab1:
-        st.markdown("### Data Science & Machine Learning")
-        st.markdown("""
-        - ✔️ Predictive Modeling (Regression, Classification)
-        - ✔️ Feature Engineering & Selection
-        - ✔️ Hyperparameter Tuning
-        - ✔️ Model Evaluation & Validation
-        - ✔️ Statistical Analysis
-        """)
+# About Page
+elif selected == "About":
+    with content_container():
+        st.markdown(
+            """
+            <div style='text-align:center;margin-bottom:2rem;'>
+                <h1 style='color:#2c3e50;'>About Me</h1>
+                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-        st.markdown("### Data Engineering")
-        st.markdown("""
-        - ✔️ Data Cleaning & Preprocessing
-        - ✔️ Web Scraping & Data Collection
-        - ✔️ Database Management
-        - ✔️ ETL Pipelines
-        """)
-    
-    with tab2:
-        st.markdown("### Data Visualization & BI")
-        st.markdown("""
-        - ✔️ Interactive Dashboard Development
-        - ✔️ Business KPI Tracking
-        - ✔️ Storytelling with Data
-        - ✔️ Report Automation
-        """)
+        col1, col2 = st.columns([1, 2])
         
-        st.markdown("### Tools")
-        st.markdown("""
-        - ⭐ Tableau (Certified)
-        - ⭐ Power BI
-        - ⭐ Matplotlib/Seaborn
-        - ⭐ Plotly
-        """)
-    
-    with tab3:
-        st.markdown("### Programming & Databases")
-        st.markdown("""
-        - 🐍 Python (Pandas, NumPy, Scikit-learn)
-        - 📊 SQL & MySQL
-        - 📝 TensorFlow (Basic)
-        """)
+        with col1:
+            st.markdown(
+                """
+                <div style='background:white;border-radius:10px;padding:2rem;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:2rem;text-align:center;'>
+                    <h3 style='color:#2c3e50;margin-bottom:1rem;'>Vamshi Krishna Kammadanam</h3>
+                    <p style='color:#555;margin-bottom:0.5rem;'>📧 vamskik@gmail.com</p>
+                    <p style='color:#555;margin-bottom:0.5rem;'>📱 +91 99858 37273</p>
+                    <p style='color:#555;margin-bottom:1.5rem;'>📍 Hyderabad, India</p>
+                    
+                    <div style='display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;'>
+                        <a href='https://linkedin.com/in/vamshikrishnakammadanam' target='_blank' style='color:#4e79a7;font-size:1.5rem;'>LinkedIn</a>
+                        <a href='#' style='color:#4e79a7;font-size:1.5rem;'>GitHub</a>
+                        <a href='#' style='color:#4e79a7;font-size:1.5rem;'>Twitter</a>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
         
-        st.markdown("### Other Tools")
-        st.markdown("""
-        - 🔧 Git Version Control
-        - 🔧 Jupyter Notebooks
-        - 🔧 MS Excel (Advanced)
-        - 🔧 BeautifulSoup (Web Scraping)
-        """)
+        with col2:
+            st.markdown("### Professional Summary")
+            st.write("Innovative Data Science professional with 3+ years of experience in building machine learning models, data analysis, and business intelligence solutions. Passionate about transforming raw data into actionable insights that drive business growth and operational efficiency.")
+            
+            st.markdown("### Education")
+            
+            st.markdown("**Master of Data Science**  \n"
+                       "La Trobe University, Melbourne  \n"
+                       "2019 - 2021")
+            
+            st.markdown("**B.Tech in Electronics and Communication Engineering**  \n"
+                       "Joginpally B.R. Engineering College  \n"
+                       "2014 - 2018")
+
+# Skills Page
+elif selected == "Skills":
+    with content_container():
+        st.markdown(
+            """
+            <div style='text-align:center;margin-bottom:2rem;'>
+                <h1 style='color:#2c3e50;'>Technical Skills</h1>
+                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        tabs = st.tabs(["Data Science", "Visualization", "Programming", "Tools"])
+        
+        with tabs[0]:
+            st.markdown("**Machine Learning**  \n"
+                       "✔️ Predictive Modeling (Regression, Classification)  \n"
+                       "✔️ Feature Engineering & Selection  \n"
+                       "✔️ Hyperparameter Tuning  \n"
+                       "✔️ Model Evaluation & Validation")
+            
+            st.markdown("**Data Engineering**  \n"
+                       "✔️ Data Cleaning & Preprocessing  \n"
+                       "✔️ Web Scraping & Data Collection  \n"
+                       "✔️ Database Management")
+        
+        with tabs[1]:
+            st.markdown("**Data Visualization & BI**  \n"
+                       "✔️ Interactive Dashboard Development  \n"
+                       "✔️ Business KPI Tracking  \n"
+                       "✔️ Storytelling with Data")
+            
+            st.markdown("**Tools**  \n"
+                       "⭐ Tableau (Certified)  \n"
+                       "⭐ Power BI  \n"
+                       "⭐ Matplotlib/Seaborn")
+        
+        with tabs[2]:
+            st.markdown("**Programming & Databases**  \n"
+                       "🐍 Python (Pandas, NumPy, Scikit-learn)  \n"
+                       "📊 SQL & MySQL  \n"
+                       "📝 TensorFlow (Basic)")
+        
+        with tabs[3]:
+            st.markdown("**Other Tools**  \n"
+                       "🔧 Git Version Control  \n"
+                       "🔧 Jupyter Notebooks  \n"
+                       "🔧 MS Excel (Advanced)")
 
 # Experience Page
-elif page == "💼 Experience":
-    display_header()
-    st.markdown("## 💼 Professional Experience")
-    
-    # Lyros Technologies
-    with st.expander("Software Engineer at Lyros Technologies Pvt. Ltd. (2021 - Present)", expanded=True):
-        st.markdown("""
-        **Key Achievements:**
-        - Developed a **house price prediction model** using linear regression that achieved **85% accuracy**, enabling the company to better estimate property values for their real estate platform.
-        - Built an **iris flower classification model** using KNN algorithm with **90% accuracy**, demonstrating strong pattern recognition capabilities.
-        - Designed and implemented a **student grading system** using Python, Tkinter, and machine learning that automated the evaluation process for educational institutions.
-        - Conducted comprehensive **data pre-processing** and **feature engineering** on large datasets, improving model performance by 15-20%.
+elif selected == "Experience":
+    with content_container():
+        st.markdown(
+            """
+            <div style='text-align:center;margin-bottom:2rem;'>
+                <h1 style='color:#2c3e50;'>Professional Experience</h1>
+                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-        **Technologies Used:** Python, Scikit-learn, Pandas, NumPy, Linear Regression, KNN, Tkinter
-        """)
-    
-    # Melbourne Innovation Center
-    with st.expander("Data Analyst Intern at Melbourne Innovation Center (2020 - 2021)", expanded=True):
-        st.markdown("""
-        **Key Achievements:**
-        - Collected, cleaned, and preprocessed datasets with over **10,000 records** using Python and Pandas, establishing robust data pipelines that improved data reliability by 30%.
-        - Conducted **exploratory data analysis (EDA)** to identify key trends and patterns, leading to actionable insights that optimized the marketing team's campaign strategy.
-        - Created interactive dashboards in **Power BI** to visualize company performance metrics, resulting in a **15% improvement** in decision-making efficiency among executives.
+        with st.expander("Software Engineer at Lyros Technologies (2021 - Present)", expanded=True):
+            st.markdown("**Key Achievements:**")
+            st.markdown("- Developed a **house price prediction model** using linear regression that achieved **85% accuracy**")
+            st.markdown("- Built an **iris flower classification model** using KNN algorithm with **90% accuracy**")
+            st.markdown("- Designed and implemented a **student grading system** using Python, Tkinter, and ML")
+            
+            st.markdown("**Technologies Used:** Python, Scikit-learn, Pandas, Linear Regression, KNN")
         
-        **Technologies Used:** Python, Pandas, Power BI, Data Cleaning, EDA, Data Visualization
-        """)
+        with st.expander("Data Analyst Intern at Melbourne Innovation Center (2020 - 2021)"):
+            st.markdown("**Key Achievements:**")
+            st.markdown("- Collected, cleaned, and preprocessed datasets with over **10,000 records**")
+            st.markdown("- Conducted **exploratory data analysis (EDA)** to identify key trends and patterns")
+            st.markdown("- Created interactive dashboards in **Power BI** improving decision-making by **15%**")
+            
+            st.markdown("**Technologies Used:** Python, Pandas, Power BI, Data Cleaning")
 
 # Projects Page
-elif page == "🚀 Projects":
-    display_header()
-    st.markdown("## 🚀 Key Projects")
-    
-    proj1, proj2, proj3 = st.tabs(["Web Scraping", "Business Resilience", "Movie Recommendation"])
-    
-    with proj1:
-        st.markdown("### E-Commerce Web Scraping & Analysis (2022)")
-        st.markdown("""
-        **Objective:** To gather competitive intelligence on laptop pricing and features across major e-commerce platforms.
+elif selected == "Projects":
+    with content_container():
+        st.markdown(
+            """
+            <div style='text-align:center;margin-bottom:2rem;'>
+                <h1 style='color:#2c3e50;'>Featured Projects</h1>
+                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-        **Implementation:**
-        - Developed a Python script using **BeautifulSoup** to scrape data for 200+ laptops from multiple e-commerce websites.
-        - Performed comprehensive data cleaning using **Pandas**, handling missing values, standardizing formats, and ensuring data consistency.
-        - Created insightful visualizations to analyze price distribution, brand popularity, and feature correlations.
+        project_tabs = st.tabs(["Web Scraping", "Business Dashboard", "Movie Recommender"])
         
-        **Outcome:**
-        - Identified 15-20% price variations for similar specifications across platforms.
-        - Provided actionable insights that helped a retail client optimize their pricing strategy.
+        with project_tabs[0]:
+            st.markdown("**E-Commerce Web Scraping (2022)**")
+            st.markdown("**Objective:** To gather competitive intelligence on laptop pricing and features across major e-commerce platforms.")
+            st.markdown("**Implementation:**")
+            st.markdown("- Scraped data for 200+ laptops using BeautifulSoup")
+            st.markdown("- Performed comprehensive data cleaning using Pandas")
+            st.markdown("- Created visualizations to analyze price distribution")
+            st.markdown("**Technologies:** Python, BeautifulSoup, Pandas")
         
-        **Technologies:** Python, BeautifulSoup, Pandas, Data Cleaning, Matplotlib
-        """)
-    
-    with proj2:
-        st.markdown("### Business Resilience Program Dashboard (2021)")
-        st.markdown("""
-        **Objective:** To create a comprehensive view of business KPIs for executive decision-making during challenging market conditions.
+        with project_tabs[1]:
+            st.markdown("**Business Resilience Dashboard (2021)**")
+            st.markdown("**Objective:** To create a comprehensive view of business KPIs for executive decision-making.")
+            st.markdown("**Implementation:**")
+            st.markdown("- Built Power BI dashboard tracking 15+ metrics")
+            st.markdown("- Performed extensive data cleaning and validation")
+            st.markdown("- Developed tailored reporting solutions")
+            st.markdown("**Technologies:** Power BI, Python, Data Cleaning")
         
-        **Implementation:**
-        - Built an interactive **Power BI** dashboard tracking 15+ core business metrics across sales, marketing, and operations.
-        - Performed extensive **data cleaning** and validation to ensure 99% data accuracy in reporting.
-        - Developed end-to-end reporting solutions tailored to specific business unit requirements.
-        
-        **Outcome:**
-        - Reduced time-to-insight by 40% for leadership team.
-        - Identified opportunities that improved marketing campaign effectiveness by 22%.
-        
-        **Technologies:** Power BI, Python, Data Cleaning, KPI Tracking, Dashboard Design
-        """)
-    
-    with proj3:
-        st.markdown("### Movie Recommendation Engine (2020)")
-        st.markdown("""
-        **Objective:** To build a personalized movie recommendation system that saves users time in content selection.
-        
-        **Implementation:**
-        - Preprocessed and integrated data from **IMDB** and **Rotten Tomatoes** to create a comprehensive movie dataset.
-        - Implemented a **k-nearest neighbors (KNN)** algorithm in scikit-learn to provide personalized recommendations.
-        - Built Tableau visualizations to track rating trends and model performance over time.
-        
-        **Outcome:**
-        - Reduced average movie selection time by **17 minutes** per user.
-        - Achieved 88% user satisfaction with recommendations.
-        
-        **Technologies:** Machine Learning, Python, Scikit-learn, KNN, Tableau
-        """)
-
-# Education & Certifications Page
-elif page == "🎓 Education & Certs":
-    display_header()
-    st.markdown("## 🎓 Education & Certifications")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("### La Trobe University")
-        st.markdown("""
-        **Master of Data Science**  
-        Feb 2019 - Jun 2021  
-        Melbourne, Australia  
-        GPA: 3.6/4.0
-        """)
-        
-        st.markdown("### Joginpally B.R. Engineering College")
-        st.markdown("""
-        **B.Tech in Electronics and Communication Engineering**  
-        Jun 2014 - May 2018  
-        Hyderabad, India
-        """)
-    
-    with col2:
-        st.markdown("### Professional Certifications")
-        st.markdown("""
-        - **Machine Learning Certification**  
-          Simplilearn | 2021
-        
-        - **Tableau Certification**  
-          Simplilearn | 2021
-        
-        - **SQL Certification**  
-          Simplilearn | 2020
-        """)
+        with project_tabs[2]:
+            st.markdown("**Movie Recommendation Engine (2020)**")
+            st.markdown("**Objective:** To build a personalized movie recommendation system.")
+            st.markdown("**Implementation:**")
+            st.markdown("- Integrated data from IMDB and Rotten Tomatoes")
+            st.markdown("- Implemented KNN algorithm for recommendations")
+            st.markdown("- Built Tableau visualizations for performance tracking")
+            st.markdown("**Technologies:** Machine Learning, Python, KNN, Tableau")
 
 # Contact Page
-elif page == "📧 Contact":
-    display_header()
-    st.markdown("## 📧 Get In Touch")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("### Contact Information")
-        st.markdown("""
-        **📱 Phone:**  
-        +91 99858 37273  
+elif selected == "Contact":
+    with content_container():
+        st.markdown(
+            """
+            <div style='text-align:center;margin-bottom:2rem;'>
+                <h1 style='color:#2c3e50;'>Get In Touch</h1>
+                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-        **✉️ Email:**  
-        vamskik@gmail.com  
+        col1, col2 = st.columns(2)
         
-        **🔗 LinkedIn:**  
-        linkedin.com/in/vamshikrishnakammadanam
-        """)
-    
-    with col2:
-        st.markdown("### Send Me a Message")
-        with st.form("contact_form"):
-            name = st.text_input("Your Name")
-            email = st.text_input("Your Email")
-            message = st.text_area("Your Message")
-            submitted = st.form_submit_button("Send Message")
-            if submitted:
-                st.success("Thank you for your message! I'll get back to you soon.")
+        with col1:
+            st.markdown(
+                """
+                <div style='background:white;border-radius:10px;padding:2rem;box-shadow:0 5px 15px rgba(0,0,0,0.1);height:100%;'>
+                    <h3 style='color:#2c3e50;margin-bottom:1.5rem;'>Contact Information</h3>
+                    
+                    <div style='display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;'>
+                        <div style='font-size:1.5rem;color:#4e79a7;'>📧</div>
+                        <div>
+                            <div style='font-weight:500;color:#2c3e50;'>Email</div>
+                            <div style='color:#555;'>vamskik@gmail.com</div>
+                        </div>
+                    </div>
+                    
+                    <div style='display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;'>
+                        <div style='font-size:1.5rem;color:#4e79a7;'>📱</div>
+                        <div>
+                            <div style='font-weight:500;color:#2c3e50;'>Phone</div>
+                            <div style='color:#555;'>+91 99858 37273</div>
+                        </div>
+                    </div>
+                    
+                    <div style='display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;'>
+                        <div style='font-size:1.5rem;color:#4e79a7;'>🔗</div>
+                        <div>
+                            <div style='font-weight:500;color:#2c3e50;'>LinkedIn</div>
+                            <div style='color:#555;'>linkedin.com/in/vamshikrishnakammadanam</div>
+                        </div>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        
+        with col2:
+            with st.form("contact_form"):
+                st.markdown("### Send Me a Message")
+                name = st.text_input("Your Name")
+                email = st.text_input("Your Email")
+                message = st.text_area("Your Message")
+                submitted = st.form_submit_button("Send Message")
+                
+                if submitted:
+                    st.success("Thank you for your message! I'll get back to you soon.")
