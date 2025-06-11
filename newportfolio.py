@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import base64
+import io
 from PIL import Image
 
 # Set page config
@@ -19,9 +20,9 @@ def img_to_bytes(img_path):
     return base64.b64encode(byte_arr.getvalue()).decode()
 
 # Add your logo files and update these paths
-python_logo = img_to_bytes("python_logo.png")
+python_logo = img_to_bytes("python_logo.jpg")
 tableau_logo = img_to_bytes("tableau_logo.png")
-powerbi_logo = img_to_bytes("powerbi_logo.png")
+powerbi_logo = img_to_bytes("powerbi_logo.jpg")
 sql_logo = img_to_bytes("sql_logo.png")
 pandas_logo = img_to_bytes("pandas_logo.png")
 numpy_logo = img_to_bytes("numpy_logo.png")
@@ -29,7 +30,9 @@ sklearn_logo = img_to_bytes("sklearn_logo.png")
 tensorflow_logo = img_to_bytes("tensorflow_logo.png")
 git_logo = img_to_bytes("git_logo.png")
 docker_logo = img_to_bytes("docker_logo.png")
-excel_logo = img_to_bytes("excel_logo.png")
+excel_logo = img_to_bytes("excel_logo.jpg")
+jupyter_logo = img_to_bytes("jupyter_logo.png")
+vscode_logo = img_to_bytes("vscode_logo.png")
 
 # Custom CSS
 def local_css(file_name):
@@ -103,16 +106,12 @@ if selected == "Home":
         
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.markdown(
-                """
+            st.markdown("""
                 <div style='background:white;border-radius:10px;padding:1.5rem;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:1rem;'>
                     <div style='font-size:2rem;margin-bottom:1rem;color:#4e79a7;'>📈</div>
                     <div style='font-size:2rem;font-weight:bold;margin-bottom:0.5rem;color:#2c3e50;'>12+</div>
                     <div style='color:#666;'>Models Built</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+                </div>""",unsafe_allow_html=True)
         
         with col2:
             st.markdown(
@@ -169,72 +168,62 @@ if selected == "Home":
 # About Page
 elif selected == "About":
     with content_container():
-        st.markdown(
-            """
-            <div style='text-align:center;margin-bottom:2rem;'>
-                <h1 style='color:#2c3e50;'>About Me</h1>
-                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        col1, col2 = st.columns([1, 2])
-        
-        with col1:
+        with content_container():
             st.markdown(
                 """
-                <div style='background:white;border-radius:10px;padding:2rem;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:2rem;text-align:center;'>
-                    <h3 style='color:#2c3e50;margin-bottom:1rem;'>Vamshi Krishna Kammadanam</h3>
-                    <p style='color:#555;margin-bottom:0.5rem;'>📧 vamskik@gmail.com</p>
-                    <p style='color:#555;margin-bottom:0.5rem;'>📱 +91 99858 37273</p>
-                    <p style='color:#555;margin-bottom:1.5rem;'>📍 Hyderabad, India</p>
-                    
-                    <div style='display:flex;justify-content:center;gap:1rem;margin-top:1.5rem;'>
-                        <a href='https://linkedin.com/in/vamshikrishnakammadanam' target='_blank' style='color:#4e79a7;font-size:1rem;text-decoration:none;'>
-                            <i class='fab fa-linkedin' style='margin-right:0.3rem;'></i>LinkedIn
-                        </a>
-                        <a href='#' style='color:#4e79a7;font-size:1rem;text-decoration:none;'>
-                            <i class='fab fa-github' style='margin-right:0.3rem;'></i>GitHub
-                        </a>
-                        <a href='#' style='color:#4e79a7;font-size:1rem;text-decoration:none;'>
-                            <i class='fab fa-twitter' style='margin-right:0.3rem;'></i>Twitter
-                        </a>
-                    </div>
+                <div style='text-align:center;margin-bottom:2rem;'>
+                    <h1 style='color:#2c3e50;'>About Me</h1>
+                    <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
                 </div>
                 """,
                 unsafe_allow_html=True
             )
-        
+
+        col1, col2 = st.columns([1, 2])
+
+        with col1:
+            st.markdown(
+                """
+                <div style='background:white;border-radius:10px;padding:1.5rem;text-align:center;border:1px solid #eee;'>
+                    <h3 style='color:#2c3e50;margin-bottom:1rem;'>Vamshi Krishna Kammadanam</h3>
+                    <p style='color:#555;margin-bottom:0.5rem;'>📧 <b>Email:</b> vamskik@gmail.com</p>
+                    <p style='color:#555;margin-bottom:0.5rem;'>📱 <b>Phone:</b> +91 99858 37273</p>
+                    <p style='color:#555;margin-bottom:1rem;'>📍 Hyderabad, India</p>
+                    <p style='color:#555;margin-bottom:1rem;'>🔗<b>Linkedin:</b> https://linkedin.com/in/vamshikrishnakammadanam</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
         with col2:
-            st.markdown("### Professional Summary")
+            st.markdown("### 👨‍💼 Professional Summary")
             st.write("""
-            I am a passionate Data Scientist with over 3 years of experience in developing machine learning models, 
-            performing data analysis, and creating business intelligence solutions. My expertise lies in transforming 
-            complex data into actionable insights that drive strategic decision-making and business growth.
-            
-            I specialize in:
-            - Building and deploying predictive models with Python
-            - Creating interactive dashboards and visualizations
-            - Designing end-to-end data pipelines
-            - Implementing statistical analysis techniques
+                I am a passionate Data Scientist with over 3 years of experience in developing machine learning models, 
+                performing data analysis, and creating business intelligence solutions. My expertise lies in transforming 
+                complex data into actionable insights that drive strategic decision-making and business growth.
+
+                **I specialize in:**
+                - Building and deploying predictive models with Python
+                - Creating interactive dashboards and visualizations
+                - Designing end-to-end data pipelines
+                - Implementing statistical analysis techniques
             """)
-            
-            st.markdown("### Education")
-            
-            with st.expander("Master of Data Science - La Trobe University (2019-2021)"):
+
+            st.markdown("### 🎓 Education")
+
+            with st.expander("📘 Master of Data Science - La Trobe University (2019–2021)"):
                 st.write("""
                 - Specialized in Machine Learning and Data Mining
-                - GPA: 3.6/4.0
-                - Thesis: "Improving Recommendation Systems with Hybrid Approaches"
+                - GPA: 3.6 / 4.0
+                - Thesis: *Improving Recommendation Systems with Hybrid Approaches*
                 - Key Courses: Advanced Data Analysis, Big Data Processing, Statistical Learning
                 """)
-            
-            with st.expander("B.Tech in ECE - Joginpally B.R. Engineering College (2014-2018)"):
+
+            with st.expander("📗 B.Tech in ECE - Joginpally B.R. Engineering College (2014–2018)"):
                 st.write("""
                 - Focused on Signal Processing and Data Analysis
                 - Graduated with First Class Honors
-                - Final Year Project: "IoT-based Health Monitoring System"
+                - Final Year Project: *IoT-based Health Monitoring System*
                 """)
 
 # Skills Page
@@ -380,8 +369,8 @@ elif selected == "Skills":
             tools = [
                 ("Git", git_logo, "75%"),
                 ("Docker", docker_logo, "60%"),
-                ("Jupyter", "", "90%"),
-                ("VS Code", "", "85%")
+                ("Jupyter", jupyter_logo, "90%"),
+                ("VS Code", vscode_logo, "85%")
             ]
             
             for i, (name, logo, perc) in enumerate(tools):
@@ -656,56 +645,32 @@ elif selected == "Certifications":
 elif selected == "Contact":
     with content_container():
         st.markdown(
-            """
-            <div style='text-align:center;margin-bottom:2rem;'>
-                <h1 style='color:#2c3e50;'>Get In Touch</h1>
-                <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        """
+        <div style='text-align:center;margin-bottom:2rem;'>
+            <h1 style='color:#2c3e50;'>Get In Touch</h1>
+            <div style='height:4px;width:80px;background:linear-gradient(90deg,#4e79a7,#9b59b6);margin:0.5rem auto;'></div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
         
         col1, col2 = st.columns(2)
         
         with col1:
             st.markdown(
                 """
-                <div style='background:white;border-radius:10px;padding:2rem;box-shadow:0 5px 15px rgba(0,0,0,0.1);height:100%;'>
-                    <h3 style='color:#2c3e50;margin-bottom:1.5rem;'>Contact Information</h3>
-                    
-                    <div style='display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;'>
-                        <div style='font-size:1.5rem;color:#4e79a7;'>📧</div>
-                        <div>
-                            <div style='font-weight:500;color:#2c3e50;'>Email</div>
-                            <div style='color:#555;'>vamskik@gmail.com</div>
-                        </div>
-                    </div>
-                    
-                    <div style='display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;'>
-                        <div style='font-size:1.5rem;color:#4e79a7;'>📱</div>
-                        <div>
-                            <div style='font-weight:500;color:#2c3e50;'>Phone</div>
-                            <div style='color:#555;'>+91 99858 37273</div>
-                        </div>
-                    </div>
-                    
-                    <div style='display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;'>
-                        <div style='font-size:1.5rem;color:#4e79a7;'>🔗</div>
-                        <div>
-                            <div style='font-weight:500;color:#2c3e50;'>LinkedIn</div>
-                            <div style='color:#555;'>linkedin.com/in/vamshikrishnakammadanam</div>
-                        </div>
-                    </div>
-                    
-                    <div style='margin-top:2rem;'>
-                        <h4 style='color:#2c3e50;margin-bottom:1rem;'>Availability</h4>
-                        <p style='color:#555;'>I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
-                    </div>
+                <div style='background-color:white;border-radius:10px;padding:2rem;box-shadow:0 5px 15px rgba(0,0,0,0.1);'>
+                    <h3 style='color:#2c3e50;'>Contact Information</h3>
+                    <p><b>📧 Email:</b> vamskik@gmail.com</p>
+                    <p><b>📱 Phone:</b> +91 99858 37273</p>
+                    <p><b>🔗 LinkedIn:</b> <a href="https://linkedin.com/in/vamshikrishnakammadanam" target="_blank">linkedin.com/in/vamshikrishnakammadanam</a></p>
+                    <h4 style='color:#2c3e50;margin-top:2rem;'>Availability</h4>
+                    <p>I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
                 </div>
                 """,
                 unsafe_allow_html=True
             )
-        
+
         with col2:
             with st.form("contact_form"):
                 st.markdown("### Send Me a Message")
@@ -714,7 +679,6 @@ elif selected == "Contact":
                 subject = st.text_input("Subject")
                 message = st.text_area("Your Message")
                 submitted = st.form_submit_button("Send Message")
-                
                 if submitted:
                     st.success("Thank you for your message! I'll get back to you soon.")
-                    # Here you would typically add code to process the form submission
+                    # Add backend email or DB storage here if needed
